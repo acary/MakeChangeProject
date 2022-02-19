@@ -64,7 +64,7 @@ public class CashRegister {
 		remaining = difference;
 		// System.out.println("Remaining: " + remaining);
 
-		if (remaining > 20.0) {
+		if (remaining >= 20.0) {
 			twenty++;
 			twenty *= remaining / 20.0;
 			remaining = remaining % 20.0;
@@ -74,7 +74,7 @@ public class CashRegister {
 			remaining = Double.valueOf(df.format(remaining));
 			// System.out.println("New remainder: " + remaining);
 		}
-		if (remaining > 10.0) {
+		if (remaining >= 10.0) {
 			ten++;
 			ten *= remaining / 10.0;
 			remaining = remaining % 10.0;
@@ -84,7 +84,7 @@ public class CashRegister {
 			remaining = Double.valueOf(df.format(remaining));
 			// System.out.println("New remainder: " + remaining);
 		}
-		if (remaining > 5.0) {
+		if (remaining >= 5.0) {
 			five++;
 			five *= remaining / 5.0;
 			remaining = remaining % 5.0;
@@ -118,6 +118,10 @@ public class CashRegister {
 			dime++;
 			dime *= remaining / 0.10;
 			remaining = remaining % 0.10;
+			
+			// Precision round
+			DecimalFormat df = new DecimalFormat("#.00");
+			remaining = Double.valueOf(df.format(remaining));
 			// System.out.println("New remainder: " + remaining);
 		}
 		if (remaining >= 0.05) {
@@ -128,7 +132,7 @@ public class CashRegister {
 			// Precision round
 			DecimalFormat df = new DecimalFormat("#.00");
 			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			System.out.println("New remainder: " + remaining);
 		}
 		if (remaining >= 0.01) {
 			penny++;
