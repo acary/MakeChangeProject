@@ -109,35 +109,36 @@ public class CashRegister {
 			remaining = formatDouble(remaining);
 		}
 
-		System.out.println();
 		System.out.println("-------- CHANGE --------");
+		System.out.println();
 		if (twenty != 0) {
-			System.out.println("Twenty: " + twenty);
+			System.out.println("$20:\t" + twenty);
 		}
 		if (ten != 0) {
-			System.out.println("Ten: " + ten);
+			System.out.println("$10:\t" + ten);
 		}
 		if (five != 0) {
-			System.out.println("Five: " + five);
+			System.out.println("$5:\t" + five);
 		}
 		if (one != 0) {
-			System.out.println("One: " + one);
+			System.out.println("$1:\t" + one);
 		}
 		if (quarter != 0) {
-			System.out.println("Quarter: " + quarter);
+			System.out.println(".25c:\t" + quarter);
 		}
 		if (dime != 0) {
-			System.out.println("Dime: " + dime);
+			System.out.println(".10c:\t" + dime);
 		}
 		if (nickel != 0) {
-			System.out.println("Nickel: " + nickel);
+			System.out.println(".05c:\t" + nickel);
 		}
 		if (penny != 0) {
-			System.out.println("Penny: " + penny);
+			System.out.println(".01c:\t" + penny);
 		}
 	}
 
 	public static void closeTransaction() {
+		System.out.println();
 		System.out.println("-------- DONE ----------");
 	}
 }
