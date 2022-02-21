@@ -33,9 +33,7 @@ public class CashRegister {
 		if (itemPrice == amountTendered) {
 			System.out.println("Exact amount.");
 		} else if (amountTendered < itemPrice) {
-			System.out.println("Amount tendered is less than the purchase price.");
-			System.out.println("Please redo transaction.");
-			System.exit(0);
+			throw new RuntimeException("Amount tendered is less than the purchase price.");
 		} else if (amountTendered > itemPrice) {
 			double difference = amountTendered - itemPrice;
 
@@ -49,7 +47,7 @@ public class CashRegister {
 	}
 
 	public static void makeChange(double difference) {
-		System.out.println("Making change for: " + difference);
+		// System.out.println("Making change for: " + difference);
 
 		// Make change ($20 ,$10 ,$5 ,$1, .25c, .10c, .05c, .01c)
 		int twenty = 0; // $20
@@ -132,7 +130,7 @@ public class CashRegister {
 			// Precision round
 			DecimalFormat df = new DecimalFormat("#.00");
 			remaining = Double.valueOf(df.format(remaining));
-			System.out.println("New remainder: " + remaining);
+			// System.out.println("New remainder: " + remaining);
 		}
 		if (remaining >= 0.01) {
 			penny++;
