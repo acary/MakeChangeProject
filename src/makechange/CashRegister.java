@@ -29,27 +29,27 @@ public class CashRegister {
 	}
 
 	public static void comparePriceToTendered() {
-
 		if (itemPrice == amountTendered) {
-			System.out.println("Exact amount.");
+			closeTransaction();
 		} else if (amountTendered < itemPrice) {
 			throw new RuntimeException("Amount tendered is less than the purchase price.");
 		} else if (amountTendered > itemPrice) {
 			double difference = amountTendered - itemPrice;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			difference = Double.valueOf(df.format(difference));
+			difference = formatDouble(difference);
 			makeChange(difference);
+			closeTransaction();
 		}
-
 		System.out.println();
+	}
+
+	public static double formatDouble(double difference) {
+		DecimalFormat df = new DecimalFormat("#.00");
+		difference = Double.valueOf(df.format(difference));
+		return difference;
 	}
 
 	public static void makeChange(double difference) {
 		// System.out.println("Making change for: " + difference);
-
-		// Make change ($20 ,$10 ,$5 ,$1, .25c, .10c, .05c, .01c)
 		int twenty = 0; // $20
 		int ten = 0; // $10
 		int five = 0; // $5
@@ -60,87 +60,53 @@ public class CashRegister {
 		int penny = 0; // $0.01
 
 		remaining = difference;
-		// System.out.println("Remaining: " + remaining);
-
 		if (remaining >= 20.0) {
 			twenty++;
 			twenty *= remaining / 20.0;
 			remaining = remaining % 20.0;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 10.0) {
 			ten++;
 			ten *= remaining / 10.0;
 			remaining = remaining % 10.0;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 5.0) {
 			five++;
 			five *= remaining / 5.0;
 			remaining = remaining % 5.0;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 1.0) {
 			one++;
 			one *= remaining / 1.0;
 			remaining = remaining % 1.0;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 0.25) {
 			quarter++;
 			quarter *= remaining / 0.25;
 			remaining = remaining % 0.25;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 0.10) {
 			dime++;
 			dime *= remaining / 0.10;
 			remaining = remaining % 0.10;
-			
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 0.05) {
 			nickel++;
 			nickel *= remaining / 0.05;
 			remaining = remaining % 0.05;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 		if (remaining >= 0.01) {
 			penny++;
 			penny *= remaining / 0.01;
 			remaining = remaining % 0.01;
-
-			// Precision round
-			DecimalFormat df = new DecimalFormat("#.00");
-			remaining = Double.valueOf(df.format(remaining));
-			// System.out.println("New remainder: " + remaining);
+			remaining = formatDouble(remaining);
 		}
 
 		System.out.println();
@@ -169,6 +135,9 @@ public class CashRegister {
 		if (penny != 0) {
 			System.out.println("Penny: " + penny);
 		}
+	}
+
+	public static void closeTransaction() {
 		System.out.println("-------- DONE ----------");
 	}
 }
